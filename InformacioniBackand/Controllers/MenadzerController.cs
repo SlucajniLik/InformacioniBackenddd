@@ -18,10 +18,10 @@ namespace InformacioniBackand.Controllers
         }
 
 
-        [HttpGet("getPlayers")]
-        public async Task<IActionResult> GetPlayers()
+        [HttpGet("getPlayers/{id}")]
+        public async Task<IActionResult> GetPlayers(int id)
         {
-            var players = await _db.Igraci.ToListAsync();
+            var players = await _db.Igraci.Where(t=>t.IdTima==id).ToListAsync();
             return Ok(players);
         }
 
@@ -63,7 +63,12 @@ namespace InformacioniBackand.Controllers
 
 
 
-
+        [HttpGet("getTeamsNull")]
+        public async Task<IActionResult> getTeams()
+        {
+            var teams = await _db.Tim.Where(t=>t.IdMenadzera==null).ToListAsync();
+            return Ok(teams);
+        }
 
 
 
