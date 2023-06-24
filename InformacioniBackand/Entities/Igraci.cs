@@ -7,9 +7,10 @@
         public string Prezime { get; set; }
         public string DatumRodjenja { get; set;}
 
+        public string? Pozicija { get; set; }
         public int? IdTima { get; set; }
 
-
+        public bool? Postava { get; set; }
 
     }
 }

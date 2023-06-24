@@ -10,6 +10,7 @@
 
         public int? IdMenadzera { get; set; }
 
+        
 
     }
 }

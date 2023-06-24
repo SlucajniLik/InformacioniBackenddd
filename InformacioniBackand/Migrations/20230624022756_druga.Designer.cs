@@ -4,6 +4,7 @@ using InformacioniBackand.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InformacioniBackand.Migrations
 {
     [DbContext(typeof(DataContexDb))]
-    partial class DataContexDbModelSnapshot : ModelSnapshot
+    [Migration("20230624022756_druga")]
+    partial class druga
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,9 +78,6 @@ namespace InformacioniBackand.Migrations
 
                     b.Property<bool?>("Postava")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Pozicija")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Prezime")
                         .IsRequired()

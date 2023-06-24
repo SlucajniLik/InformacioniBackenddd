@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Runtime.InteropServices;
 
 namespace InformacioniBackand.Controllers
 {
@@ -21,7 +22,7 @@ namespace InformacioniBackand.Controllers
         [HttpGet("getPlayers/{id}")]
         public async Task<IActionResult> GetPlayers(int id)
         {
-            var players = await _db.Igraci.Where(t=>t.IdTima==id).ToListAsync();
+            var players = await _db.Igraci.Where(t=>t.IdTima==id  && t.Postava==null).ToListAsync();
             return Ok(players);
         }
 
@@ -69,6 +70,58 @@ namespace InformacioniBackand.Controllers
             var teams = await _db.Tim.Where(t=>t.IdMenadzera==null).ToListAsync();
             return Ok(teams);
         }
+
+
+
+
+        [HttpGet("getManagerTeam/{id}")]
+        public async Task<IActionResult> GetManagerTeam(int id)
+        {
+
+
+            var team= await this._db.Tim.FirstOrDefaultAsync(t=>t.IdMenadzera==id);
+
+            return Ok(team);
+
+        }
+
+
+
+        [HttpGet("getPlayersLineUp/{id}/{type}")]
+        public async Task<IActionResult> GetPlayersFirst(int id,bool type)
+        {
+            var players = await _db.Igraci.Where(t => t.IdTima == id && t.Postava==type).ToListAsync();
+            return Ok(players);
+        }
+
+
+       
+
+
+
+        [HttpPut("editLineUp/{id}/{type}")]
+        public async Task<IActionResult> EditLineUp(int id,bool? type)
+        {
+
+            var player = await _db.Igraci.FirstOrDefaultAsync(t => t.Id == id);
+
+
+
+            player.Postava = type;
+
+
+            _db.Igraci.Update(player);
+
+            _db.SaveChangesAsync();
+
+
+
+
+
+            return Ok(player);
+        }
+
+
 
 
 
