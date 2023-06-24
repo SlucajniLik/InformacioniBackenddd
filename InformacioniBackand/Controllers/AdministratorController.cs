@@ -46,6 +46,42 @@ namespace InformacioniBackand.Controllers
         }
 
 
+        [HttpGet("getNonApprovedMemebers")]
+        public async Task<IActionResult> getNonApprovedMembers()
+        {
+            var members = await _db.Navijac.Where(t=>t.StatusReg==null).ToListAsync();
+            return Ok(members);
+        }
+
+
+
+        [HttpPut("approveMemebers/{id}/{status}")]
+        public async Task<IActionResult> approveMembers(int id,bool status)
+        {
+            
+            if(status==false)
+            {
+                var memeber = await _db.Navijac.FirstOrDefaultAsync(t => t.Id == id);
+                _db.Navijac.Remove(memeber);
+                _db.SaveChangesAsync();
+
+            }
+            else if(status==true)
+            {
+                var memeber = await _db.Navijac.FirstOrDefaultAsync(t => t.Id == id);
+                memeber.StatusReg = true;
+                _db.Navijac.Update(memeber);
+                _db.SaveChangesAsync();
+            }
+
+
+
+
+            return Ok(null);
+        }
+
+
+
 
 
         [HttpPost("addTeams")]

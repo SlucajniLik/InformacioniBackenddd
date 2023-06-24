@@ -169,6 +169,11 @@ namespace InformacioniBackand.Controllers
                 return Ok(null);
             }
 
+            if(memmberr.StatusReg==null)
+            {
+                return Ok("nonAllowed");
+            }
+
             string token = CreateJWTMember(memmberr);
             return Ok(token);
         }
