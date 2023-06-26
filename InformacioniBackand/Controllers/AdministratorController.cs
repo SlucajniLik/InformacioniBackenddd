@@ -119,6 +119,13 @@ namespace InformacioniBackand.Controllers
         {
           //  var matches = await _db.Utakmica.FirstOrDefaultAsync(t=>t.)
                 
+                 var matches=await _db.Utakmica.FirstOrDefaultAsync(t=>t.Datum==match.Datum && (t.IdTima1==match.IdTima1
+                 ||t.IdTima2==match.IdTima2 ||t.IdTima1==match.IdTima2 ||t.IdTima2==match.IdTima1));
+                 
+                 if (matches!=null)
+                 {
+                return Ok(null);
+                  }
 
 
 
@@ -316,15 +323,10 @@ namespace InformacioniBackand.Controllers
 
                                  }).FirstOrDefaultAsync();
                              
-
-
             if(payment==null)
             {
                 return Ok(null);    
             }
-
-
-
             return Ok(payment);
         }
 

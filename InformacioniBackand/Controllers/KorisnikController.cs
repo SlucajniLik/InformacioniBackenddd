@@ -19,11 +19,11 @@ namespace InformacioniBackand.Controllers
     public class KorisnikController : ControllerBase
     {
         private readonly DataContexDb _db;
-        private readonly JWTSettings _jwt;
-        public KorisnikController(DataContexDb db, IOptions<JWTSettings> jwt)
+        private readonly IConfiguration config;
+        public KorisnikController(DataContexDb db, IConfiguration configuration)
         {
             _db = db;
-            _jwt = jwt.Value;
+            config=configuration;
         }
 
 
@@ -187,8 +187,12 @@ namespace InformacioniBackand.Controllers
             var token = Request.Headers.Authorization[0];
 
             token = token.Split(' ')[1];
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var jwtToken = tokenHandler.ReadToken(token) as JwtSecurityToken;
+
+
+           
 
             var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == "nameid")?.Value;
             var role = jwtToken.Claims.FirstOrDefault(c => c.Type == "role")?.Value;
@@ -220,7 +224,7 @@ namespace InformacioniBackand.Controllers
         private string CreateJWTMember(Navijac memberFan)
         {
 
-            var Skey = _jwt.Key.ToString();
+            var Skey = config.GetSection("JWTSettings:Key").Value;
             //var Skey = "moj1234567891234";
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Skey));
             
@@ -238,7 +242,7 @@ namespace InformacioniBackand.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                Expires = DateTime.UtcNow.AddMinutes(100),
                 SigningCredentials = signingCredentials
 
             };
@@ -254,7 +258,7 @@ namespace InformacioniBackand.Controllers
         private string CreateJWTAdmin(Administrator admin)
         {
 
-            var Skey = _jwt.Key.ToString();
+            var Skey = config.GetSection("JWTSettings:Key").Value;
             //var Skey = "moj1234567891234";
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Skey));
 
@@ -272,7 +276,7 @@ namespace InformacioniBackand.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                Expires = DateTime.UtcNow.AddMinutes(100),
                 SigningCredentials = signingCredentials
 
             };
@@ -290,7 +294,7 @@ namespace InformacioniBackand.Controllers
         private string CreateJWTManager(Menadzer manager)
         {
 
-            var Skey = _jwt.Key.ToString();
+            var Skey = config.GetSection("JWTSettings:Key").Value;
             //var Skey = "moj1234567891234";
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Skey));
 
@@ -308,7 +312,7 @@ namespace InformacioniBackand.Controllers
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                Expires = DateTime.UtcNow.AddMinutes(100),
                 SigningCredentials = signingCredentials
 
             };

@@ -135,9 +135,41 @@ namespace InformacioniBackand.Controllers
 
         }
 
+        
+
+
+ [HttpGet("getMemberData/{id}")]
+        public async Task<IActionResult> getMemberdata(int id)
+        {
+            // var payment = await _db.Uplata.FirstOrDefaultAsync(t => t.IdNavijaca == id);
+
+            var payment = await (from a in _db.Uplata
+                                 join
+                                 b in _db.Navijac
+                                 on a.IdNavijaca equals b.Id
+                                 join c in _db.Tim
+                                 on b.IdTima equals c.Id
+                                 where a.IdNavijaca == id
+                                 select new
+                                 {
+                                     ime = b.Ime,
+                                     prezime = b.Prezime,
+                                     datumPlacanja = a.DatumPlacanja,
+                                     suma = a.Suma,
+                                     imeTima=c.Naziv,
+                                     logo=c.Logo
 
 
 
+
+                                 }).FirstOrDefaultAsync();
+
+            if (payment == null)
+            {
+                return Ok(null);
+            }
+            return Ok(payment);
+        }
 
 
     }
