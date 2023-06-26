@@ -54,6 +54,19 @@ namespace InformacioniBackand.Controllers
         }
 
 
+        [HttpGet("gettMemebers")]
+        public async Task<IActionResult> getMembers()
+        {
+            var members = await _db.Navijac.Where(t=>t.StatusReg==true).ToListAsync();
+            return Ok(members);
+        }
+
+
+
+
+
+
+
 
         [HttpPut("approveMemebers/{id}/{status}")]
         public async Task<IActionResult> approveMembers(int id,bool status)
@@ -253,6 +266,67 @@ namespace InformacioniBackand.Controllers
             return Ok(result);
         }
 
+
+
+        [HttpPost("addPayment")]
+        public async Task<IActionResult> addPayment([FromBody] Uplata uplata)
+        {
+              var uplata1=await _db.Uplata.FirstOrDefaultAsync(t => t.IdNavijaca==uplata.IdNavijaca);
+
+            if(uplata1!=null)
+            {
+                uplata1.DatumPlacanja = uplata.DatumPlacanja;
+                uplata1.Suma = uplata.Suma;
+
+                _db.Uplata.Update(uplata1);
+                await _db.SaveChangesAsync();
+
+                return Ok();
+            }
+
+
+
+
+            _db.Uplata.Add(uplata);
+            await _db.SaveChangesAsync();
+            return Ok();
+        }
+
+
+
+        [HttpGet("getPaymentMember/{id}")]
+        public async Task<IActionResult> getPaymentMember(int id)
+        {
+            // var payment = await _db.Uplata.FirstOrDefaultAsync(t => t.IdNavijaca == id);
+
+            var payment = await (from a in _db.Uplata
+                                 join
+                                 b in _db.Navijac
+                                 on a.IdNavijaca equals b.Id
+                                 where a.IdNavijaca==id
+                                 select new
+                                 {
+                                     ime = b.Ime,
+                                     prezime = b.Prezime,
+                                     datumPlacanja = a.DatumPlacanja,
+                                     suma = a.Suma
+
+
+
+
+                                 }).FirstOrDefaultAsync();
+                             
+
+
+            if(payment==null)
+            {
+                return Ok(null);    
+            }
+
+
+
+            return Ok(payment);
+        }
 
 
 

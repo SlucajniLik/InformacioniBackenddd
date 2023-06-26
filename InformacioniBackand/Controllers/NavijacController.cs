@@ -95,5 +95,50 @@ namespace InformacioniBackand.Controllers
 
 
 
+        [HttpGet("getResultForMember/{id}")]
+        public async Task<IActionResult> getResultForMember(int id)
+        {
+            var matches = await _db.Rezultati.Where(t=>t.IdTima==id).ToListAsync();
+
+
+
+
+            return Ok(matches);
+
+        }
+
+
+
+        [HttpGet("getMatchesForMember/{id}/{sezona}")]
+        public async Task<IActionResult> getMatchesForMember(int id,string sezona)
+        {
+
+            var matches = await (from a in _db.Utakmica
+
+
+                                 select new
+                                 {
+                                     Utakmica = a,
+                                     Tim1 = _db.Tim.FirstOrDefault(t => t.Id == a.IdTima1).Naziv,
+                                     Tim2 = _db.Tim.FirstOrDefault(t => t.Id == a.IdTima2).Naziv,
+
+
+
+
+
+                                 }).ToListAsync();
+            var matchess = matches.Where(t => t.Utakmica.Datum.Split("-")[0] == sezona && (t.Utakmica.IdTima1==id || t.Utakmica.IdTima2==id));
+
+
+
+            return Ok(matchess);
+
+        }
+
+
+
+
+
+
     }
 }
