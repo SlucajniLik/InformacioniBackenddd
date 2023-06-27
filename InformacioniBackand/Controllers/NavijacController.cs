@@ -16,7 +16,7 @@ namespace InformacioniBackand.Controllers
         }
 
 
-        [HttpPost("addTeam"), Authorize(Roles ="admin")]
+        [HttpPost("addTeam"), Authorize(Roles ="navijac")]
         public async Task<IActionResult> addTeam(Tim team)
         {
            await  _db.Tim.AddAsync(team);
@@ -31,7 +31,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpGet("getTeamsMember/{id}")]
+        [HttpGet("getTeamsMember/{id}"), Authorize(Roles = "navijac")]
         public async Task<IActionResult> getTeamsMember(int? id)
         {
 
@@ -50,7 +50,7 @@ namespace InformacioniBackand.Controllers
         }
 
 
-        [HttpGet("getTeamMemeberInforrmation/{id}")]
+        [HttpGet("getTeamMemeberInforrmation/{id}") ,Authorize(Roles = "navijac")]
         public async Task<IActionResult> TeamMemeberInforrmation(int? id)
         {
 
@@ -71,7 +71,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpPut("editMemeberTeam/{idMemeber}/{idTeam}")]
+        [HttpPut("editMemeberTeam/{idMemeber}/{idTeam}"), Authorize(Roles = "navijac")]
         public async Task<IActionResult> editTeamsMember(int idMemeber,int idTeam)
         {
             
@@ -95,7 +95,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpGet("getResultForMember/{id}")]
+        [HttpGet("getResultForMember/{id}"), Authorize(Roles = "navijac")]
         public async Task<IActionResult> getResultForMember(int id)
         {
             var matches = await _db.Rezultati.Where(t=>t.IdTima==id).ToListAsync();
@@ -109,7 +109,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpGet("getMatchesForMember/{id}/{sezona}")]
+        [HttpGet("getMatchesForMember/{id}/{sezona}"), Authorize(Roles = "navijac")]
         public async Task<IActionResult> getMatchesForMember(int id,string sezona)
         {
 
@@ -138,7 +138,7 @@ namespace InformacioniBackand.Controllers
         
 
 
- [HttpGet("getMemberData/{id}")]
+ [HttpGet("getMemberData/{id}"), Authorize(Roles = "navijac")]
         public async Task<IActionResult> getMemberdata(int id)
         {
             // var payment = await _db.Uplata.FirstOrDefaultAsync(t => t.IdNavijaca == id);

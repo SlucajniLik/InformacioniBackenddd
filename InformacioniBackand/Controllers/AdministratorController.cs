@@ -19,11 +19,16 @@ namespace InformacioniBackand.Controllers
         }
 
 
-       
+
+        [HttpGet("getTeamsNull"), Authorize(Roles = "admin")]
+        public async Task<IActionResult> getTeams()
+        {
+            var teams = await _db.Tim.Where(t => t.IdMenadzera == null).ToListAsync();
+            return Ok(teams);
+        }
 
 
-
-        [HttpGet("results")]
+        [HttpGet("results"),Authorize(Roles ="admin")]
         public async Task<IActionResult> GetResults()
         {
             var results = await _db.Rezultati.ToListAsync();
@@ -31,22 +36,22 @@ namespace InformacioniBackand.Controllers
         }
 
 
-        [HttpGet("match")]
+        [HttpGet("match"), Authorize(Roles = "admin")]
         public async Task<IActionResult> GetMatch()
         {
             var match = await _db.Utakmica.ToListAsync();
             return Ok(match);
         }
 
-        [HttpGet("getTeams")]
-        public async Task<IActionResult> getTeams()
+       [HttpGet("getTeams"), Authorize(Roles = "admin")]
+        public async Task<IActionResult> getTeamsN()
         {
            var teams=await _db.Tim.ToListAsync();
             return Ok(teams);
         }
 
 
-        [HttpGet("getNonApprovedMemebers")]
+        [HttpGet("getNonApprovedMemebers"), Authorize(Roles = "admin")]
         public async Task<IActionResult> getNonApprovedMembers()
         {
             var members = await _db.Navijac.Where(t=>t.StatusReg==null).ToListAsync();
@@ -54,7 +59,7 @@ namespace InformacioniBackand.Controllers
         }
 
 
-        [HttpGet("gettMemebers")]
+        [HttpGet("gettMemebers"), Authorize(Roles = "admin")]
         public async Task<IActionResult> getMembers()
         {
             var members = await _db.Navijac.Where(t=>t.StatusReg==true).ToListAsync();
@@ -68,7 +73,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpPut("approveMemebers/{id}/{status}")]
+        [HttpPut("approveMemebers/{id}/{status}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> approveMembers(int id,bool status)
         {
             
@@ -97,7 +102,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpPost("addTeams")]
+        [HttpPost("addTeams"), Authorize(Roles = "admin")]
         public async Task<IActionResult> addTeam([FromBody]Tim team)
         {
             _db.Tim.Add(team);
@@ -106,7 +111,7 @@ namespace InformacioniBackand.Controllers
         }
 
 
-        [HttpPost("addResults")]
+        [HttpPost("addResults"), Authorize(Roles = "admin")]
         public async Task<IActionResult> addResult(Rezultati result)
         {
             _db.Rezultati.Add(result);
@@ -114,7 +119,7 @@ namespace InformacioniBackand.Controllers
             return Ok();
         }
 
-        [HttpPost("addMatch")]
+        [HttpPost("addMatch"), Authorize(Roles = "admin")]
         public async Task<IActionResult> addMatch([FromBody]Utakmica match)
         {
           //  var matches = await _db.Utakmica.FirstOrDefaultAsync(t=>t.)
@@ -140,7 +145,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpGet("getResults/{id}")]
+        [HttpGet("getResults/{id}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> GetResults(int id)
         {
 
@@ -154,7 +159,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpGet("getManagers")]
+        [HttpGet("getManagers"), Authorize(Roles = "admin")]
         public async Task<IActionResult> GetManagers()
         {
 
@@ -181,7 +186,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpGet("getMatches")]
+        [HttpGet("getMatches"), Authorize(Roles = "admin")]
         public async Task<IActionResult> GetMatches()
         {
 
@@ -206,7 +211,7 @@ namespace InformacioniBackand.Controllers
         }
 
 
-        [HttpPut("editMatch/{id}")]
+        [HttpPut("editMatch/{id}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> editMatch(  int id, [FromBody] DtoUtakmica utm)
         {
 
@@ -224,7 +229,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpPost("addResult")]
+        [HttpPost("addResult"), Authorize(Roles = "admin")]
         public async Task<IActionResult> addResults([FromBody] Rezultati result)
         {
             //  var matches = await _db.Utakmica.FirstOrDefaultAsync(t=>t.)
@@ -241,7 +246,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpPut("updateResult")]
+        [HttpPut("updateResult"), Authorize(Roles = "admin")]
         public async Task<IActionResult> updateResults([FromBody] Rezultati result)
         {
             //  var matches = await _db.Utakmica.FirstOrDefaultAsync(t=>t.)
@@ -256,7 +261,7 @@ namespace InformacioniBackand.Controllers
         }
 
 
-        [HttpGet("getTeamResult/{id}/{sez}")]
+        [HttpGet("getTeamResult/{id}/{sez}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> getTeamResults(int id ,string sez)
         {
             var result = await _db.Rezultati.FirstOrDefaultAsync(t => t.IdTima == id && t.Sezona == sez);
@@ -275,7 +280,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpPost("addPayment")]
+        [HttpPost("addPayment"), Authorize(Roles = "admin")]
         public async Task<IActionResult> addPayment([FromBody] Uplata uplata)
         {
               var uplata1=await _db.Uplata.FirstOrDefaultAsync(t => t.IdNavijaca==uplata.IdNavijaca);
@@ -301,7 +306,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpGet("getPaymentMember/{id}")]
+        [HttpGet("getPaymentMember/{id}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> getPaymentMember(int id)
         {
             // var payment = await _db.Uplata.FirstOrDefaultAsync(t => t.IdNavijaca == id);

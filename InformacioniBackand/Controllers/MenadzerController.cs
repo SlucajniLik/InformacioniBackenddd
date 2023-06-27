@@ -19,7 +19,7 @@ namespace InformacioniBackand.Controllers
         }
 
 
-        [HttpGet("getPlayers/{id}")]
+        [HttpGet("getPlayers/{id}"),Authorize(Roles ="menadzer")]
         public async Task<IActionResult> GetPlayers(int id)
         {
             var players = await _db.Igraci.Where(t=>t.IdTima==id  && t.Postava==null).ToListAsync();
@@ -29,7 +29,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpPost("addPlayers")]
+        [HttpPost("addPlayers"), Authorize(Roles = "menadzer")]
         public async Task<IActionResult> addPlayer([FromBody]Igraci player)
         {
             _db.Igraci.Add(player);
@@ -40,7 +40,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpPut("choseTeam/{id}/{idMenadzera}")]
+        [HttpPut("choseTeam/{id}/{idMenadzera}"), Authorize(Roles = "menadzer")]
         public async Task<IActionResult> editTeam(int id,int idMenadzera)
         {
 
@@ -55,7 +55,7 @@ namespace InformacioniBackand.Controllers
         }
 
 
-        [HttpGet("getTeamsManager/{id}")]
+        [HttpGet("getTeamsManager/{id}"), Authorize(Roles = "menadzer")]
         public async Task<IActionResult> getTeams(int id)
         {
             var teams = await _db.Tim.Where(t=>t.IdMenadzera==id).ToListAsync();
@@ -64,17 +64,17 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpGet("getTeamsNull")]
+       /* [HttpGet("getTeamsNull"), Authorize(Roles = "menadzer")]
         public async Task<IActionResult> getTeams()
         {
             var teams = await _db.Tim.Where(t=>t.IdMenadzera==null).ToListAsync();
             return Ok(teams);
         }
+       */
 
 
 
-
-        [HttpGet("getManagerTeam/{id}")]
+        [HttpGet("getManagerTeam/{id}"), Authorize(Roles = "menadzer")]
         public async Task<IActionResult> GetManagerTeam(int id)
         {
 
@@ -87,7 +87,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpGet("getPlayersLineUp/{id}/{type}")]
+        [HttpGet("getPlayersLineUp/{id}/{type}"), Authorize(Roles = "menadzer")]
         public async Task<IActionResult> GetPlayersFirst(int id,bool type)
         {
             var players = await _db.Igraci.Where(t => t.IdTima == id && t.Postava==type).ToListAsync();
@@ -99,7 +99,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpPut("editLineUp/{id}/{type}")]
+        [HttpPut("editLineUp/{id}/{type}"), Authorize(Roles = "menadzer")]
         public async Task<IActionResult> EditLineUp(int id,bool? type)
         {
 
