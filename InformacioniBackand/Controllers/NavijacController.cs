@@ -71,7 +71,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpPut("editMemeberTeam/{idMemeber}/{idTeam}"), Authorize(Roles = "navijac")]
+        [HttpPut("editMemeberTeam/{idMemeber}/{idTeam}")]
         public async Task<IActionResult> editTeamsMember(int idMemeber,int idTeam)
         {
             
@@ -84,6 +84,29 @@ namespace InformacioniBackand.Controllers
             _db.Navijac.Update(member);    
 
             await _db.SaveChangesAsync();   
+
+
+
+
+
+            return Ok(member);
+        }
+
+
+
+        [HttpPut("editMemebershipCard/{idMemeber}")]
+        public async Task<IActionResult> editMembershipCard(int idMemeber)
+        {
+
+            var member = await _db.Navijac.FirstOrDefaultAsync(t => t.Id == idMemeber);
+
+
+            member.BrojClanskeKarte = idMemeber;
+
+
+            _db.Navijac.Update(member);
+
+            await _db.SaveChangesAsync();
 
 
 
@@ -157,7 +180,8 @@ namespace InformacioniBackand.Controllers
                                      datumPlacanja = a.DatumPlacanja,
                                      suma = a.Suma,
                                      imeTima=c.Naziv,
-                                     logo=c.Logo
+                                     logo=c.Logo,
+                                     brojClanske=b.BrojClanskeKarte
 
 
 

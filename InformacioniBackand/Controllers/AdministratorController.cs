@@ -73,7 +73,7 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpPut("approveMemebers/{id}/{status}"), Authorize(Roles = "admin")]
+        [HttpPut("approveMemebers/{id}/{status}")]
         public async Task<IActionResult> approveMembers(int id,bool status)
         {
             
@@ -321,7 +321,8 @@ namespace InformacioniBackand.Controllers
                                      ime = b.Ime,
                                      prezime = b.Prezime,
                                      datumPlacanja = a.DatumPlacanja,
-                                     suma = a.Suma
+                                     suma = a.Suma,
+                                     brojClanske=a.IdNavijaca
 
 
 
