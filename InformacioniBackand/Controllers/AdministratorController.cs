@@ -315,6 +315,8 @@ namespace InformacioniBackand.Controllers
                                  join
                                  b in _db.Navijac
                                  on a.IdNavijaca equals b.Id
+                                 join c in _db.Tim
+                                 on b.IdTima equals c.Id
                                  where a.IdNavijaca==id
                                  select new
                                  {
@@ -322,8 +324,9 @@ namespace InformacioniBackand.Controllers
                                      prezime = b.Prezime,
                                      datumPlacanja = a.DatumPlacanja,
                                      suma = a.Suma,
-                                     brojClanske=a.IdNavijaca
-
+                                     brojClanske=a.IdNavijaca,
+                                     imeTima=c.Naziv,
+                                     logoTima=c.Logo
 
 
 
