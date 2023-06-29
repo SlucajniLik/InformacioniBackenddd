@@ -31,7 +31,16 @@ namespace InformacioniBackand.Controllers
 
         [HttpPost("addPlayers"), Authorize(Roles = "menadzer")]
         public async Task<IActionResult> addPlayer([FromBody]Igraci player)
-        {
+        {   
+
+            var ig=await _db.Igraci.Where(t=>t.Ime==player.Ime && t.Prezime==player.Prezime && t.IdTima==player.IdTima).FirstOrDefaultAsync();
+
+            if (ig != null)
+            {
+                return Ok("no");
+            }
+
+
             _db.Igraci.Add(player);
             await _db.SaveChangesAsync();
             return Ok();

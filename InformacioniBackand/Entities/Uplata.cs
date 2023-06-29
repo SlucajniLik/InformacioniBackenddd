@@ -7,6 +7,7 @@
         public string DatumPlacanja { get; set; }
         public int Suma { get; set; }
         public int? IdNavijaca { get; set; }
+       
 
     }
 }

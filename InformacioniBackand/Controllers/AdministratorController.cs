@@ -50,6 +50,13 @@ namespace InformacioniBackand.Controllers
             return Ok(teams);
         }
 
+        [HttpGet("getTeamsFil/{id}"), Authorize(Roles = "admin")]
+        public async Task<IActionResult> getTeamsFil(int id)
+        {
+            var teams = await _db.Tim.Where(t=>t.Id!=id).ToListAsync();
+            return Ok(teams);
+        }
+
 
         [HttpGet("getNonApprovedMemebers"), Authorize(Roles = "admin")]
         public async Task<IActionResult> getNonApprovedMembers()
@@ -105,6 +112,15 @@ namespace InformacioniBackand.Controllers
         [HttpPost("addTeams"), Authorize(Roles = "admin")]
         public async Task<IActionResult> addTeam([FromBody]Tim team)
         {
+            var tm=await _db.Tim.FirstOrDefaultAsync(t=>t.Naziv== team.Naziv);    
+
+            if(tm!=null)
+            {
+                return Ok("no");
+            }
+
+
+
             _db.Tim.Add(team);
             await _db.SaveChangesAsync();
             return Ok();
@@ -151,6 +167,18 @@ namespace InformacioniBackand.Controllers
 
 
             var results = await this._db.Rezultati.Where(t=>t.IdTima==id).ToListAsync();
+
+            return Ok(results);
+
+        }
+
+
+        [HttpGet("getDates/{id}"), Authorize(Roles = "admin")]
+        public async Task<IActionResult> GetDates(int id)
+        {
+
+
+            var results = await this._db.Rezultati.Where(t => t.IdTima == id).ToListAsync();
 
             return Ok(results);
 
