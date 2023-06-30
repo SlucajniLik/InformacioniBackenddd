@@ -9,7 +9,7 @@
 
         public string? Pozicija { get; set; }
         public int? IdTima { get; set; }
-        public Tim Tim { get; set; }
+//        public Tim Tim { get; set; }
 
         public bool? Postava { get; set; }
 

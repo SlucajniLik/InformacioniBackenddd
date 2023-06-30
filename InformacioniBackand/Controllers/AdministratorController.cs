@@ -116,14 +116,14 @@ namespace InformacioniBackand.Controllers
 
             if(tm!=null)
             {
-                return Ok("no");
+                return Ok(null);
             }
 
 
 
             _db.Tim.Add(team);
             await _db.SaveChangesAsync();
-            return Ok();
+            return Ok(team);
         }
 
 
@@ -152,7 +152,7 @@ namespace InformacioniBackand.Controllers
 
             _db.Utakmica.Add(match);
             await _db.SaveChangesAsync();
-            return Ok();
+            return Ok(match);
         }
 
 
@@ -214,8 +214,8 @@ namespace InformacioniBackand.Controllers
 
 
 
-        [HttpGet("getMatches"), Authorize(Roles = "admin")]
-        public async Task<IActionResult> GetMatches()
+        [HttpGet("getMatches/{year}"),Authorize(Roles ="admin")]
+        public async Task<IActionResult> GetMatches(int year)
         {
 
 
@@ -234,9 +234,35 @@ namespace InformacioniBackand.Controllers
 
                                  }).ToListAsync();
 
-            return Ok(matches); 
+            var matchess = matches.Where(t => DateTime.Parse(t.Utakmica.Datum).Year == year);
+
+            return Ok(matchess); 
 
         }
+
+
+        [HttpGet("getMatchesDates"),Authorize(Roles ="admin")]
+        public async Task<IActionResult> GetMatchesDates()
+        {
+
+
+            var matches = await _db.Utakmica.Select(t => DateTime.Parse(t.Datum).Year).ToListAsync();
+
+            var mat = matches.Distinct();
+            return Ok(mat);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
         [HttpPut("editMatch/{id}"), Authorize(Roles = "admin")]

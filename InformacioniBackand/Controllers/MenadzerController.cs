@@ -37,13 +37,13 @@ namespace InformacioniBackand.Controllers
 
             if (ig != null)
             {
-                return Ok("no");
+                return Ok(null);
             }
 
 
             _db.Igraci.Add(player);
             await _db.SaveChangesAsync();
-            return Ok();
+            return Ok(player);
         }
 
 

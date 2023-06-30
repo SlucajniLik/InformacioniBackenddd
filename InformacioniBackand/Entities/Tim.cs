@@ -10,11 +10,11 @@
 
         public int? IdMenadzera { get; set; }
 
-        public ICollection<Navijac> Navijac { get; set; }
+     //   public ICollection<Navijac> Navijac { get; set; }
 
-        public ICollection<Igraci> Igraci { get; set; }
+//        public ICollection<Igraci> Igraci { get; set; }
 
-        public ICollection<Utakmica> Utakmica { get; set; }
+       // public ICollection<Utakmica> Utakmica { get; set; }
 
     }
 }
