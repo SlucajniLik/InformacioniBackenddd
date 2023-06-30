@@ -11,8 +11,8 @@
         public string? BrCrvenihKartona { get; set; }
 
         public int? IdTima1 { get; set; }
-       // public Tim Tim1 { get; set; }
+        
         public int? IdTima2 { get; set; }
-      //  public Tim Tim2 { get; set; }
+      
     }
 }

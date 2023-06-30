@@ -32,7 +32,7 @@ builder.Services.AddCors(opt =>
 
 
 
-builder.Services.Configure<JWTSettings>(builder.Configuration.GetSection("JWTSettings"));
+
 
 
 var secretKey = builder.Configuration.GetSection("JWTSettings:Key").Value;

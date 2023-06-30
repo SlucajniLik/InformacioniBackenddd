@@ -10,11 +10,11 @@
         public string Prezime { get; set; }
         public bool? StatusReg { get; set; }
         public int? IdTima { get; set; }
-
+         
         public int? BrojClanskeKarte { get; set; }
 
         public string? DatumIstekaRoka { get; set; }
 
-
+       
     }
 }

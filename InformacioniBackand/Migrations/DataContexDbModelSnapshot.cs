@@ -122,17 +122,6 @@ namespace InformacioniBackand.Migrations
                     b.ToTable("Menazder");
                 });
 
-            modelBuilder.Entity("InformacioniBackand.Entities.NaKlupi", b =>
-                {
-                    b.Property<int>("IdIgraca")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUtakmice")
-                        .HasColumnType("int");
-
-                    b.ToTable("NaKlupi");
-                });
-
             modelBuilder.Entity("InformacioniBackand.Entities.Navijac", b =>
                 {
                     b.Property<int>("Id")
@@ -268,17 +257,6 @@ namespace InformacioniBackand.Migrations
                     b.ToTable("Uplata");
                 });
 
-            modelBuilder.Entity("InformacioniBackand.Entities.UPrvojPostavi", b =>
-                {
-                    b.Property<int>("IdIgraca")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUtakmice")
-                        .HasColumnType("int");
-
-                    b.ToTable("UprvojPostavi");
-                });
-
             modelBuilder.Entity("InformacioniBackand.Entities.Utakmica", b =>
                 {
                     b.Property<int?>("Id")
@@ -311,29 +289,6 @@ namespace InformacioniBackand.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Utakmica");
-                });
-
-            modelBuilder.Entity("InformacioniBackand.Entities.ZahteviZaProduzenjeClastva", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("DatumZahteva")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("IdNavijaca")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StatusZahteva")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ZahteviZaProduzenjeClastva");
                 });
 #pragma warning restore 612, 618
         }

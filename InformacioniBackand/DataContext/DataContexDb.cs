@@ -1,12 +1,39 @@
 ﻿using InformacioniBackand.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 namespace InformacioniBackand.DataContext
 {
     public class DataContexDb: DbContext
     { 
         public DataContexDb(DbContextOptions<DataContexDb> options) : base(options)
-        { }        
+        { }
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         public DbSet<Administrator> Administrator { get; set; }
@@ -18,10 +45,11 @@ namespace InformacioniBackand.DataContext
         public DbSet<Tim> Tim { get; set; }
         public DbSet<Rezultati> Rezultati { get; set; }
         public DbSet<Utakmica> Utakmica { get; set; }
-        public DbSet<UPrvojPostavi> UprvojPostavi { get; set; }
-        public DbSet<NaKlupi> NaKlupi{ get; set; }
+        
+       
         public DbSet<Uplata> Uplata { get; set; }
-        public DbSet<ZahteviZaProduzenjeClastva> ZahteviZaProduzenjeClastva { get; set; }
+      
+
 
 
     }

@@ -13,6 +13,7 @@
 
         public int BrBodova { get; set; }
         public int IdTima { get; set; }
+        
 
     }
 }
